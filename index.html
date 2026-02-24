@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GymMacro</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: white;
+  text-align: center;
+  padding: 30px;
+}
+.container {
+  max-width: 400px;
+  margin: auto;
+  background: #1c1c1c;
+  padding: 20px;
+  border-radius: 10px;
+}
+input, select, button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: none;
+}
+button {
+  background: #00ff99;
+  font-weight: bold;
+}
+.result {
+  margin-top: 20px;
+  font-size: 18px;
+}
+</style>
+</head>
+<body>
+
+<h1>GymMacro</h1>
+
+<div class="container">
+<input type="number" id="weight" placeholder="Kilo (kg)">
+<select id="goal">
+  <option value="cut">Kilo Verme</option>
+  <option value="bulk">Kas Yapma</option>
+</select>
+<button onclick="calculate()">Hesapla</button>
+
+<div class="result" id="result"></div>
+</div>
+
+<script>
+function calculate() {
+  let weight = document.getElementById("weight").value;
+  let goal = document.getElementById("goal").value;
+
+  let calories = weight * 30;
+  if (goal === "cut") calories -= 300;
+  if (goal === "bulk") calories += 300;
+
+  let protein = weight * 2;
+  let fat = weight * 0.8;
+  let carbs = (calories - (protein*4 + fat*9)) / 4;
+
+  document.getElementById("result").innerHTML =
+    "Kalori: " + Math.round(calories) + " kcal<br>" +
+    "Protein: " + Math.round(protein) + " g<br>" +
+    "Yağ: " + Math.round(fat) + " g<br>" +
+    "Karbonhidrat: " + Math.round(carbs) + " g";
+}
+</script>
+
+</body>
+</html>
