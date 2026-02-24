@@ -5,48 +5,79 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GymMacro</title>
 <style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
 body {
-  font-family: Arial, sans-serif;
-  background: #111;
-  color: white;
-  text-align: center;
-  padding: 30px;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  color:white;
 }
-.container {
-  max-width: 400px;
-  margin: auto;
-  background: #1c1c1c;
-  padding: 20px;
-  border-radius: 10px;
+
+.card {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(15px);
+  padding:40px;
+  border-radius:20px;
+  width:350px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.4);
 }
-input, select, button {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
-  border: none;
+
+h1 {
+  text-align:center;
+  margin-bottom:25px;
+  font-weight:600;
 }
+
+input, select {
+  width:100%;
+  padding:12px;
+  margin-bottom:15px;
+  border:none;
+  border-radius:10px;
+  font-size:14px;
+}
+
 button {
-  background: #00ff99;
-  font-weight: bold;
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:#00ffcc;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
 }
+
+button:hover {
+  background:#00ccaa;
+}
+
 .result {
-  margin-top: 20px;
-  font-size: 18px;
+  margin-top:20px;
+  background:rgba(0,0,0,0.3);
+  padding:15px;
+  border-radius:10px;
+  font-size:14px;
+  line-height:1.6;
 }
 </style>
 </head>
 <body>
 
+<div class="card">
 <h1>GymMacro</h1>
 
-<div class="container">
 <input type="number" id="weight" placeholder="Kilo (kg)">
 <select id="goal">
   <option value="cut">Kilo Verme</option>
   <option value="bulk">Kas Yapma</option>
 </select>
-<button onclick="calculate()">Hesapla</button>
+
+<button onclick="calculate()">Makroları Hesapla</button>
 
 <div class="result" id="result"></div>
 </div>
@@ -57,14 +88,15 @@ function calculate() {
   let goal = document.getElementById("goal").value;
 
   let calories = weight * 30;
-  if (goal === "cut") calories -= 300;
+  if (goal === "cut") calories -= 400;
   if (goal === "bulk") calories += 300;
 
-  let protein = weight * 2;
-  let fat = weight * 0.8;
+  let protein = weight * 2.2;
+  let fat = weight * 0.9;
   let carbs = (calories - (protein*4 + fat*9)) / 4;
 
   document.getElementById("result").innerHTML =
+    "<strong>Günlük Hedef:</strong><br>" +
     "Kalori: " + Math.round(calories) + " kcal<br>" +
     "Protein: " + Math.round(protein) + " g<br>" +
     "Yağ: " + Math.round(fat) + " g<br>" +
